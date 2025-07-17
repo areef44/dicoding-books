@@ -2,6 +2,28 @@ function main() {
 
   const getBook = () => {
     // tuliskan kode di sini!
+    const xhr = new XMLHttpRequest();
+
+    // menetapkan callback jika response sukses dan error
+    xhr.onload = function () {
+      const responseJson = JSON.parse(this.responseText)
+
+      if(responseJson.error){
+        showResponseMessage(responseJson.message)
+      } else {
+        renderAllBooks(responseJson.books)
+      }
+    }
+
+    xhr.onerror = function () {
+      showResponseMessage()
+    }
+
+    // Membuat GET request dan menetapkan target URL
+    xhr.open('GET','https://books-api.dicoding.dev/list')
+
+    // Mengirimkan request
+    xhr.send()
   };
 
 
@@ -17,10 +39,6 @@ function main() {
     // tuliskan kode di sini!
   };
 
-
-  
-  
-  
   
   /*
       jangan ubah kode di bawah ini ya!
